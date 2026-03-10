@@ -17,34 +17,29 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-//se não passarmos o parâmetro, passamos um Modifier com tudo que tem direito - valor default (padrão)
-fun LoginScreen(modifier: Modifier = Modifier, navController: NavController){
+fun PerfilScreen(modifier: Modifier = Modifier, navController: NavController) {
     Box(
         modifier = modifier
-        .fillMaxSize()
-        .background(Color(0xFFED145B))
-        .padding(32.dp)
+            .fillMaxSize()
+            .background(Color(0xFF329F6B))
+            .padding(32.dp)
     ) {
-//        escopo - objeto text e button >> Tudo jetpack Compose
         Text(
-            text = "LOGIN",
+            text = "PERFIL",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White
         )
-//        é um objeto compose > Tem parâmetro (onClick) e Escopo
         Button(
-            //quando clicar no botão - clica no navController - Navega para a rota Menu > Que manda para MenuScreen
-            onClick = {  navController.navigate("menu") },
+            onClick = { navController.navigate("menu") },
             colors = ButtonDefaults.buttonColors(Color.White),
             modifier = Modifier.align(Alignment.Center)
         ) {
             Text(
-                text = "ENTRAR",
+                text = "Voltar",
                 fontSize = 20.sp,
                 color = Color.Blue
             )
         }
-
     }
 }
