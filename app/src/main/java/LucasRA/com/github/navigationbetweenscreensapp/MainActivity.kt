@@ -17,9 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import LucasRA.com.github.navigationbetweenscreensapp.ui.theme.NavigationbetweenscreensappTheme
 import androidx.navigation.NavHost
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 
 class MainActivity : ComponentActivity() { // Bundle - quem cuida dos estados das activities
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,11 +49,22 @@ class MainActivity : ComponentActivity() { // Bundle - quem cuida dos estados da
                         composable(route = "menu") {
                             MenuScreen(modifier = Modifier.padding(innerPadding), navController)
                         }
-                        composable(route = "pedidos") {
-                            PedidosScreen(modifier = Modifier.padding(innerPadding), navController)
+                        composable(route = "pedidos?cliente={cliente}",
+                            arguments = listOf(navArgument("cliente"){
+                                defaultValue = "Cliente Genérico"
+                            })
+                            ) {
+                            PedidosScreen(modifier = Modifier.padding(innerPadding), navController, it.arguments?.getString("cliente"))
                         }
-                        composable(route = "perfil") {
-                            PerfilScreen(modifier = Modifier.padding(innerPadding), navController)
+                        composable(route = "perfil/{nome}/{idade}",
+                            arguments = listOf(
+                                navArgument("nome") { type = NavType.StringType},
+                                navArgument("idade") { type = NavType.IntType}
+                            )
+                            ) {
+                            val nome: String? = it.arguments?.getString("nome", "Usuário Genérico")
+                            val idade: Int? = it.arguments?.getInt("idade", 0)
+                            PerfilScreen(modifier = Modifier.padding(innerPadding), navController, nome!!, idade!!)
                         }
                     }
                 }
